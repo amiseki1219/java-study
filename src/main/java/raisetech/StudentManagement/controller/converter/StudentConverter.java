@@ -16,22 +16,10 @@ public class StudentConverter {
         List<StudentsCourses> studentsCourses) {
       List<StudentDetail> studentDetails = new ArrayList<>();
       students.stream()
-          .filter(Objects::nonNull)  // ← 念のためnull弾く
           .forEach(student -> {
-            // 🔻 ログ出力（ここ追加）
-            System.out.println("=== Student Log ===");
-            System.out.println("Student: " + student);
-            System.out.println("Student ID: " + student.getId());
-
-            // 🔻 nullチェック
-            if (student.getId() == 0) {
-              System.out.println("⚠ student.getId() が 0 だよ！");
-            }
-
             StudentDetail studentDetail = new StudentDetail();
             studentDetail.setStudent(student);
 
-            // コース紐付け
             List<StudentsCourses> convertStudentCourses = studentsCourses.stream()
                 .filter(studentsCourse -> student.getId() == studentsCourse.getStudentId())
                 .collect(Collectors.toList());

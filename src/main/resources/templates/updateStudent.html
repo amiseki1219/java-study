@@ -41,6 +41,10 @@
     <textarea id="remark" th:field="*{student.remark}"></textarea>
 
   </div>
+  <div>
+    <label for="isDeleted">キャンセル</label>
+    <input type="checkbox" id="isDeleted" th:field="*{student.deleted}"/>
+  </div>
   <div th:each="course, stat : *{studentsCourses}">
     <input type="hidden" th:field="*{studentsCourses[__${stat.index}__].id}" />
     <input type="hidden" th:field="*{studentsCourses[__${stat.index}__].studentId}" />
