@@ -1,10 +1,13 @@
 package raisetech.StudentManagement.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Size;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +21,7 @@ import raisetech.StudentManagement.service.StudentService;
 /**
  * 受講生の検索や登録、更新などを行うREST APIとして実行されるControllerです。
  */
+@Validated
 @RestController
 public class StudentController {
 
@@ -76,6 +80,7 @@ public class StudentController {
     return ResponseEntity.ok(responseStudentDetail);
   }
 
+
   /**
    *受講生詳細の更新を行う。
    * キャンセルフラグの更新もここで行います。（論理削除）
@@ -84,9 +89,10 @@ public class StudentController {
    */
   @PutMapping("/updateStudent")
   public ResponseEntity<String> updateStudent(@RequestBody StudentDetail studentDetail) {
-    System.out.println(studentDetail.getStudent().getNickname());
+    System.out.println(studentDetail.getStudent());
     service.updateStudent(studentDetail);
     return ResponseEntity.ok("更新処理が成功しました。");
   }
+
 }
 
