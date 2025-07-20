@@ -1,7 +1,7 @@
 package raisetech.StudentManagement.controller;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Size;
+
+import jakarta.validation.constraints.NotBlank;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import raisetech.StudentManagement.data.StudentsCourses;
 import raisetech.StudentManagement.domain.StudentDetail;
+import raisetech.StudentManagement.exception.TestException;
 import raisetech.StudentManagement.service.StudentService;
 
 /**
@@ -56,7 +57,7 @@ public class StudentController {
    * @return 受講生詳細
    */
   @GetMapping("/student/{id}")
-  public StudentDetail getStudent(@PathVariable int id) {
+  public StudentDetail getStudent(@PathVariable @NotBlank int id) {
     return service.searchStudent(id);
   }
 
@@ -94,5 +95,10 @@ public class StudentController {
     return ResponseEntity.ok("更新処理が成功しました。");
   }
 
+  @GetMapping("/test-error")
+  public String testError() throws TestException {
+    throw new TestException("これはテスト用の例外です。");
+
+  }
 }
 
