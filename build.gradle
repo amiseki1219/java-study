@@ -34,8 +34,13 @@ dependencies {
 	//Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+
+	//OpenAPI Generator
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
+
+
 	//便利機能、ユーティリティ。Apache Commons Lang
-	implementation("org.apache.commons:commons-lang3:3.17.0")
+	implementation 'org.apache.commons:commons-lang3:3.17.0'
 
 	//Lombok
 	compileOnly 'org.projectlombok:lombok'
