@@ -3,7 +3,6 @@ package raisetech.StudentManagement.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import raisetech.StudentManagement.data.Student;
-import raisetech.StudentManagement.data.StudentsCourses;
 import raisetech.StudentManagement.domain.StudentDetail;
 import raisetech.StudentManagement.exception.TestException;
 import raisetech.StudentManagement.service.StudentService;
@@ -80,14 +77,14 @@ public class StudentController {
 
   @Operation(summary = "受講生登録", description = "受講生の登録をします。",
       responses = {
-          @ApiResponse(responseCode = "201", description = "正常に登録"),
+          @ApiResponse(responseCode = "200", description = "正常に登録"),
           @ApiResponse(responseCode = "400", description = "入力値が不正です。"),
           @ApiResponse(responseCode = "500", description = "サーバー内部エラー")
       })
   @PostMapping("/registerStudent")
   public ResponseEntity<StudentDetail> registerStudent(@RequestBody StudentDetail studentDetail) {
     StudentDetail responseStudentDetail = service.registerStudent(studentDetail);
-    return ResponseEntity.status(HttpStatus.CREATED).body(responseStudentDetail);
+    return ResponseEntity.ok(responseStudentDetail);
   }
 
 
