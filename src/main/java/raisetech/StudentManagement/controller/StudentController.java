@@ -18,6 +18,7 @@ import raisetech.StudentManagement.domain.StudentDetail;
 import raisetech.StudentManagement.exception.TestException;
 import raisetech.StudentManagement.service.StudentService;
 
+
 /**
  * 受講生の検索や登録、更新などを行うREST APIとして実行されるControllerです。
  */
@@ -113,5 +114,8 @@ public class StudentController {
     throw new TestException("これはテスト用の例外です。");
 
   }
+
+
+
 }
 

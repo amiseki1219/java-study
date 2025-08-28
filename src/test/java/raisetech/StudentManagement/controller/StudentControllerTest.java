@@ -18,8 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.server.ResponseStatusException;
 import raisetech.StudentManagement.data.Student;
 import raisetech.StudentManagement.domain.StudentDetail;
 import raisetech.StudentManagement.service.StudentService;
@@ -110,6 +112,38 @@ class StudentControllerTest {
 
     assertThat(violations.size()).isEqualTo(0);
   }
+
+  @Test
+  void 指定IDが存在しない場合は404が返ること() throws Exception {
+    when(service.searchStudent(999))
+        .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "student not found"));
+
+    mockMvc.perform(get("/student/{id}", 999))
+        .andExpect(status().isNotFound());
+  }
+  @Test
+  void 不正なJSONを送ったら400が返ること() throws Exception {
+    String brokenJson = "{ \"student\": { \"name\": ";
+
+    mockMvc.perform(post("/registerStudent")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(brokenJson))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void Studentの入力チェック_不正値ならバリデーション違反が発生する(){
+    Student s = new Student();
+    s.setName(" ");           // @NotBlank違反
+    s.setEmail("bad-email");  // @Email違反
+
+    var violations = validator.validate(s);
+
+    assertThat(violations)
+        .extracting(v -> v.getPropertyPath().toString())
+        .contains("name", "email");
+  }
+
 
 
 
