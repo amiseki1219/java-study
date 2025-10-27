@@ -3,11 +3,9 @@ package raisetech.StudentManagement.service;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.sun.source.tree.ModuleTree.ModuleKind;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,7 +51,7 @@ class StudentServiceTest {
   }
 
   @Test
-  void 受講生詳細の検索_受講生とコース情報が取得できること() {
+  void 受講生詳細の検索_リポジトリの処理が呼び出されていること() {
     int studentId = 1;
     Student dummyStudent = new Student();
 
@@ -77,7 +75,7 @@ class StudentServiceTest {
 
   }
   @Test
-  void 受講生詳細の登録_受講生とコースが登録されて返ってくること(){
+  void 受講生詳細の登録_リポジトリの処理が正しく呼び出されていること(){
     Student dummyStudent = new Student();
     dummyStudent.setId(10);
     dummyStudent.setName("あみまる");
@@ -100,7 +98,7 @@ class StudentServiceTest {
     
   }
   @Test
-  void 受講生詳細の更新_受講生とコースが正しく更新されること(){
+  void 受講生詳細の更新_リポジトリの処理が正しく呼び出されていること(){
     Student dummyStudent = new Student();
     dummyStudent.setId(777);
     dummyStudent.setName("宇宙たろう");
